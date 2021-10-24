@@ -1,27 +1,10 @@
-let name = 'консТАНтиН';
-let surname = 'оЛегОВич'
+let name = 'коНСТАнтиН';
+let surname = 'оЛеГОвиЧ';
 
-// Получаем 1 и последующие строки
-let fearstLetterName = name.substr(0, 1);
-let nextLetterName = name.substr(1);
+let correct_name = ((name.substr(0, 1)).toUpperCase()) + ((name.substr(1)).toLowerCase());
+let correct_surname = ((surname.substr(0, 1)).toUpperCase()) + ((surname.substr(1)).toLowerCase());
 
-let fearstLetterSur = surname.substr(0, 1);
-let nextLetterSur = surname.substr(1);
+console.log(`${correct_name} \n${correct_surname}`);
 
-// Преобразуем строки в нужный регистр
-let regLetterName = fearstLetterName.toUpperCase();
-let regNextLetterName = nextLetterName.toLowerCase();
-let regName = regLetterName + regNextLetterName;
-
-let regLetterSur = fearstLetterSur.toUpperCase();
-let regNextLetterSur = nextLetterSur.toLowerCase();
-let regSur = regLetterSur + regNextLetterSur;
-
-console.log(regName, regSur)
-
-//  Сравниваем и выводим значение "true" или "false"
-if (regName !== name && regSur !== surname) {
-  console.log('Имя было изменено')
-} else {
-  console.log('Имя осталось без изменений')
-}
+name === correct_name ? console.log('Имя осталось без изменений') : console.log('Имя было преобразовано');
+surname === correct_surname ? console.log('Фамилия осталась без изменений') : console.log('Фамилия была преобразована');
