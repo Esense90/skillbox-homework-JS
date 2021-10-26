@@ -1,1 +1,1 @@
-let roadMines = [false, false, false, false, false, false, false, false, false, false];
+let roadMines = [false, false, false, true, false, false, false, false, false, false];
