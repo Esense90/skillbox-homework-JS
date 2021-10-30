@@ -1,31 +1,33 @@
-function calculate(summBasket, countProductBasket, promo) {
-    let totalAmount = summBasket;
+function calculate(summBasket, countProductBasket, promo = null) {
+  let totalAmount = summBasket
 
-    if (promo = 'ДАРИМ300' && summBasket < 300) {
-        totalAmount = 0;
+  if (promo === 'ДАРИМ300') {
+    totalAmount -= 300
 
-    } else if (promo = 'ДАРИМ300') {
-        totalAmount -= 300;
-
+    if (totalAmount < 0) {
+      totalAmount = 0
     }
+  }
 
-    if (countProductBasket >= 10) {
-        let countFiveProcent = summBasket / 100 * 5;
-        totalAmount -= countFiveProcent;
-    }
+  if (countProductBasket >= 10) {
+    totalAmount -= calcPercent(totalAmount, 5)
+  }
 
-    if (summBasket > 50000) {
-        let countTwentyProcent = totalAmount / 100 * 5;
-        let countDifference = totalAmount - countFiveProcent;
-        totalAmount = countDifference - countTwentyProcent;
-    }
+  if (totalAmount > 50000) {
+    const difference = totalAmount - 50000
+    totalAmount -= calcPercent(difference, 20)
+  }
 
-    if (promo = 'СКИДА15' && summBasket >= 20000) {
-        let countFifteenProcent = totalAmount / 100 * 15;
-        totalAmount -= countFifteenProcent;
-    }
+  if (promo === 'СКИДКА15' && totalAmount >= 20000) {
+    totalAmount -= calcPercent(totalAmount, 15)
+  }
+
+  return totalAmount
 }
 
-calculate(50000, 14, 'ДАРИМ300');
+function calcPercent(value, percent) {
+  return value * (percent / 100)
+}
+
 
 export default calculate;
