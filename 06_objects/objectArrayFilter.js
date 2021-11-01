@@ -1,37 +1,27 @@
 let objects = [
-  { carModel: 'Mazda', engineVolume: '2.5' },
-  { carModel: 'Toyota', engineVolume: '3.2' },
-  { carModel: 'Nissan', engineVolume: '2.0' },
+  { model: 'Mazda', engineVolume: '2' },
+  { model: 'Nissan', engineVolume: '3' },
+  { model: 'Toyota', engineVolume: '2.2' },
+  { model: 'Mazda', engineVolume: '1.8' },
+  { model: 'Mazda', engineVolume: '1.8' }
 ];
 
-function filterObjects() {
+function filterObjects(objects, key, value) {
+
+  let filtered = [];
 
   for (let i in objects) {
+    let obj = objects[i];
+    if (obj[key] === value)
+      filtered.push(obj)
 
-    let value = Object.values(objects[i])
-
-
-
-
-
-    console.log('carModel' + value);
   }
-
-  // let filtered = filterObjects(objects, 'carModel', 'Mazda');
-
+  return filtered;
 }
 
+let filteredObjects = filterObjects(objects, 'model', 'Mazda');
 
-filterObjects();
-
-
-
+console.log(filteredObjects);
 
 
-
-
-
-
-
-
-// export default objectFilter;
+export default filterObjects;
