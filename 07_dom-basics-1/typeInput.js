@@ -13,5 +13,3 @@ newH2.style.border = "1px solid black";
 
 let inp = document.getElementById('new-input');
 let h2 = document.getElementById('new-h2');
-
-function

@@ -1,5 +1,6 @@
 let input = document.createElement("input");
 document.body.append(input);
+input.style.margin = "50px";
 input.value = '0';
 input.min = '0';
 input.type = 'number';
