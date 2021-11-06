@@ -11,7 +11,13 @@ newH2.style.minWidth = "50px"
 newH2.style.height = "25px"
 newH2.style.border = "1px solid black";
 
-let inp = document.getElementById('new-input');
-let h2 = document.getElementById('new-h2');
+let interval;
 
-function
+newInput.addEventListener('keyup', function() {
+    clearTimeout(interval);
+
+    interval = setTimeout(function() {
+        newH2.innerHTML = newInput.value;
+    }, 300)
+
+});
