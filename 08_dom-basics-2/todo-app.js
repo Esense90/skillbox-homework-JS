@@ -18,6 +18,7 @@
         buttonWrapper.classList.add('input-group-append');
         button.classList.add('btn', 'btn-primary');
         button.textContent = 'Добавить дело';
+        button.disabled = true;
 
         buttonWrapper.append(button);
         form.append(input);
@@ -71,11 +72,19 @@
         container.append(todoItemForm.form);
         container.append(todoList);
 
+        todoItemForm.input.addEventListener('input', function() {
+            if (!todoItemForm.input.value) {
+                todoItemForm.button.disabled = true;
+            } else {
+                todoItemForm.button.disabled = false;
+            }
+        })
+
         todoItemForm.form.addEventListener('submit', function(e) {
             e.preventDefault();
 
             if (!todoItemForm.input.value) {
-                return;
+                return
             }
 
             let todoItem = createTodoItem(todoItemForm.input.value);
@@ -93,11 +102,8 @@
 
             todoItemForm.input.value = '';
 
-
         });
     }
-
-
 
 
     window.createTodoApp = createTodoApp;
