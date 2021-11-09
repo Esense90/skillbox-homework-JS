@@ -102,6 +102,8 @@
 
             todoItemForm.input.value = '';
 
+            todoItemForm.button.disabled = true;
+
         });
     }
 
