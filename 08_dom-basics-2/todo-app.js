@@ -1,14 +1,12 @@
-(function() {
+let todoArray = [];
 
-  let todoArray = [];
-
-  function createApptitle(title) {
+function createApptitle(title) {
     let appTitle = document.createElement('h2');
     appTitle.innerHTML = title;
     return appTitle;
-  }
+}
 
-  function createTodoItemForm() {
+function createTodoItemForm() {
     let form = document.createElement('form');
     let input = document.createElement('input');
     let buttonWrapper = document.createElement('div');
@@ -27,20 +25,20 @@
     form.append(buttonWrapper);
 
     return {
-      form,
-      input,
-      button,
-      buttonWrapper,
+        form,
+        input,
+        button,
+        buttonWrapper,
     };
-  }
+}
 
-  function createTodoList() {
+function createTodoList() {
     let list = document.createElement('ul');
     list.classList.add('list-group');
     return list;
-  }
+}
 
-  function createTodoItem(name) {
+function createTodoItem(name) {
     let item = document.createElement('li');
     let buttonGroup = document.createElement('div');
     let doneButton = document.createElement('button');
@@ -63,15 +61,44 @@
     item.append(buttonGroup);
 
     return {
-      item,
-      doneButton,
-      deleteButton,
-      buttonGroup,
+        item,
+        doneButton,
+        deleteButton,
+        buttonGroup,
     };
-  }
+}
 
+let changeItemDone = (arr, item) => {
+    arr.map(obj => {
+        if (obj.id === item.id & obj.done === false) {
+            obj.done = true;
+        } else if (obj.id === item.id & obj.done === false) {
+            obj.done = false;
+        }
+    });
+}
 
-  function createTodoApp(container, title = 'Список дел', key) {
+let completeTodoItem = (item, btn) => {
+    btn.addEventListener('click', function() {
+        todoArray = JSON.parse(localStorage.getItem(key));
+        item.classList.toggle('list-group-item-success')
+        changeItemDone(todoArray, item);
+        localStorage.setItem(key, JSON.stringify(todoArray));
+    });
+};
+
+let deleteTodoItem = (item, btn) => {
+    btn.addEventListener('click', function() {
+        if (confirm('Вы уверены?')) {
+            todoArray = JSON.parse(localStorage.getItem(key));
+            let newList = todoArray.filter(obj => obj.id !== item.id);
+            localStorage.setItem(key, JSON.stringify(newList));
+            item.remove();
+        }
+    });
+};
+
+function createTodoApp(container, title = 'Список дел', key) {
     let todoAppTitle = createApptitle(title);
     let todoItemForm = createTodoItemForm();
     let todoList = createTodoList();
@@ -82,98 +109,71 @@
 
 
     todoItemForm.input.addEventListener('input', function() {
-      if (!todoItemForm.input.value) {
-        todoItemForm.button.disabled = true;
-      } else {
-        todoItemForm.button.disabled = false;
-      }
+        if (!todoItemForm.input.value) {
+            todoItemForm.button.disabled = true;
+        } else {
+            todoItemForm.button.disabled = false;
+        }
     })
 
     if (localStorage.getItem(key)) {
-      todoArray = JSON.parse(localStorage.getItem(key));
+        todoArray = JSON.parse(localStorage.getItem(key));
 
-      for (let obj of todoArray) {
-        let todoItem = createTodoItem(todoItemForm.input.value);
+        for (let obj of todoArray) {
+            let todoItem = createTodoItem(todoItemForm.input.value);
 
-        todoItem.item.innerHTML = obj.name;
-        todoItem.item.id = obj.id;
+            todoItem.item.textContent = obj.name;
+            todoItem.item.id = obj.id;
 
-        if (obj.done == true) {
-          todoItem.item.classList.add('list-group-item-success');
-        } else {
-          todoItem.item.classList.remove('list-group-item-success');
+            if (obj.done == true) {
+                todoItem.item.classList.add('list-group-item-success');
+            } else {
+                todoItem.item.classList.remove('list-group-item-success');
+            }
+
+            todoList.append(todoItem.item);
+            todoItem.item.append(todoItem.buttonGroup);
         }
-
-        todoList.append(todoItem.item);
-      }
     }
 
     todoItemForm.form.addEventListener('submit', function(e) {
-      e.preventDefault();
+        e.preventDefault();
 
-      if (!todoItemForm.input.value) {
-        return
-      }
-
-      let todoItem = createTodoItem(todoItemForm.input.value);
-
-      let changeItemDone = (arr, item) => {
-        arr.map(obj => {
-          if (obj.id === item.id & obj.done === false) {
-            obj.done = true;
-          } else {
-            obj.done = false;
-          }
-        });
-      }
-
-      todoItem.doneButton.addEventListener('click', function() {
-        todoArray = JSON.parse(localStorage.getItem(key));
-        todoItem.item.classList.toggle('list-group-item-success');
-        changeItemDone(todoArray, todoItem.item);
-        localStorage.setItem(key, JSON.stringify(todoArray));
-      });
-
-      todoItem.deleteButton.addEventListener('click', function() {
-        if (confirm('Вы уверены?')) {
-          todoArray = JSON.parse(localStorage.getItem(key));
-          let newList = todoArray.filter(obj => obj.id !== todoItem.item.id);
-          localStorage.setItem(key, JSON.stringify(newList));
-          todoItem.item.remove();
+        if (!todoItemForm.input.value) {
+            return
         }
-      });
 
-      let localStorageData = localStorage.getItem(key);
+        completeTodoItem(todoItem.item, todoItem.doneButton);
+        deleteTodoItem(todoItem.item, todoItem.deleteButton);
 
-      if (localStorageData == null) {
-        todoArray = [];
-      } else {
-        todoArray = JSON.parse(localStorageData);
-      }
+        let todoItem = createTodoItem(todoItemForm.input.value);
 
-      let createItemObj = (arr) => {
-        let itemObj = {};
-        itemObj.name = todoItemForm.input.value;
-        itemObj.id = todoItem.item.id;
-        itemObj.done = false;
+        let localStorageData = localStorage.getItem(key);
 
-        arr.push(itemObj);
-      }
+        if (localStorageData == null) {
+            todoArray = [];
+        } else {
+            todoArray = JSON.parse(localStorageData);
+        }
 
-      createItemObj(todoArray);
-      localStorage.setItem(key, JSON.stringify(todoArray));
+        let createItemObj = (arr) => {
+            let itemObj = {};
+            itemObj.name = todoItemForm.input.value;
+            itemObj.id = todoItem.item.id;
+            itemObj.done = false;
+
+            arr.push(itemObj);
+        }
+
+        createItemObj(todoArray);
+        localStorage.setItem(key, JSON.stringify(todoArray));
 
 
-      todoList.append(todoItem.item);
+        todoList.append(todoItem.item);
 
-      todoItemForm.input.value = '';
+        todoItemForm.input.value = '';
 
-      todoItemForm.button.disabled = true;
-
+        todoItemForm.button.disabled = true;
 
     });
-  }
-
-
-  window.createTodoApp = createTodoApp;
-})();
+}
