@@ -4,6 +4,8 @@
 
   let array = [];
 
+  let counter = 0;
+
   function createApp() {
 
     const wrapper = document.createElement('div');
@@ -26,17 +28,25 @@
 
       card.addEventListener('click', () => {
         card.classList.add('is-flipped');
-        cardBackFace.classList.add('flipped')
         setTimeout(() => {
           card.classList.remove('is-flipped');
-          cardBackFace.classList.remove('flipped')
-        }, 9000)
-      })
+        }, 3000)
+        counter++
+
+        if (counter === 2) {
+          const notFlipped = document.querySelectorAll('div:not(.is-flipped)');
+          for (const n of notFlipped) {
+            n.style.pointerEvents = 'none';
+          };
+        };
+      });
+
+
+
     }
 
-    const cardBackFaceNumber = document.querySelectorAll('.card__back--face')
-
     function createNumber(cardsArray) {
+      const cardBackFaceNumber = document.querySelectorAll('.card__back--face')
       for (i = 0; i < 16; i++) {
         array.push(cardsArray[i]);
         cardBackFaceNumber[i].textContent = array[i];
@@ -44,15 +54,25 @@
     }
     createNumber(cardsArray);
 
-    const shuffleCard = document.querySelectorAll('.card');
+
 
     function shuffle() {
+      const shuffleCard = document.querySelectorAll('.card');
       shuffleCard.forEach(shuffleCard => {
         let randomPos = Math.floor(Math.random() * 12);
         shuffleCard.style.order = randomPos;
       })
     }
     shuffle();
+
+
+
+
+
+
+
+
+
 
 
   }
