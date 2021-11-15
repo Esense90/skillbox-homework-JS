@@ -28,7 +28,7 @@
                 card.classList.add('is-flipped');
                 setTimeout(() => {
                     card.classList.remove('is-flipped');
-                }, 3000)
+                }, 9000)
             })
         }
 
