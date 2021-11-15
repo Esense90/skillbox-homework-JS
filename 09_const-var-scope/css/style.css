@@ -1,35 +1,52 @@
 .container {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 
 .wrapper__cards {
-  display: flex;
-  flex-flow: row wrap;
-  width: 448px;
-  margin-top: 130px;
-  background: green;
+    display: flex;
+    flex-flow: row wrap;
+    width: 448px;
+    margin-top: 130px;
+    background: green;
+    perspective: 600px;
 }
 
 .card {
-  width: 100px;
-  height: 150px;
-  border: 1px solid red;
-  border-radius: 5px;
-  margin: 5px;
+    width: 100px;
+    height: 150px;
+    border: 1px solid red;
+    border-radius: 5px;
+    margin: 5px;
+    position: relative;
+    transition: transform 1s;
+    transform-style: preserve-3d;
 }
 
-.upper__card {
-  background-image: url(../img/img.jpg);
-  background-size: cover;
+.card__front--face {
+    background-image: url(../img/img.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
-.down__card {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 40px;
-  color: red;
-  box-shadow: 2px 2px 5px rgba(122, 122, 122, 0.5);
-  background: rgba(122, 122, 122, 0.5)
+.card__back--face {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    color: red;
+    box-shadow: 2px 2px 5px rgba(122, 122, 122, 0.5);
+    background: white;
+    transform: rotateY(180deg);
+}
+
+.card__face {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    backface-visibility: hidden;
+}
+
+.card.is-flipped {
+    transform: rotateY(180deg);
 }
