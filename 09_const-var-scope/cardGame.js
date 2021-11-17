@@ -7,6 +7,14 @@
   let tmpCard = [];
 
 
+  function createRestartButton() {
+    resetButton = document.createElement('button');
+    resetButton.classList.add('resetButton');
+    resetButton.textContent = "Сыграть еще раз";
+    wrapper.append(resetButton);
+    wrapper.style.padding.bottom = '40px';
+  };
+
   function createArray(value) {
     const size = value * value;
     const array = [];
@@ -47,11 +55,9 @@
       value = 4;
     };
 
-    const gameTimer = document.createElement('div');
     const wrapper = document.createElement('div');
     const array = createArray(value).newArray;
 
-    gameTimer.classList.add('timer');
     wrapper.className = 'wrapper__cards';
     wrapper.id = "wrapper";
     wrapper.style.width = 79 * value + 'px';
@@ -97,6 +103,16 @@
           if (Number(tmpContent[0]) == Number(tmpContent[1])) {
             tmpCard[0].classList.add('is-founded');
             tmpCard[1].classList.add('is-founded');
+
+            const founded = document.querySelectorAll('.is-founded');
+
+            if (founded.length === value * value) {
+              createRestartButton();
+              resetButton.addEventListener('click', () => {
+                wrapper.style.display = 'none';
+                createApp();
+              })
+            };
             counter = 0;
             tmpCard = [];
             return false;
@@ -110,9 +126,7 @@
           }, 3000)
         }
         counter++;
-
-
-      });
+      })
     }
   }
 
