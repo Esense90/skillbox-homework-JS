@@ -1,5 +1,16 @@
 (() => {
 
+  let studentsArray = [];
+
+
+
+
+
+
+
+
+
+
   function createForm() {
     const form = document.createElement('form');
     const fullName = document.createElement('input');
@@ -41,10 +52,8 @@
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-
       form.reset();
     })
-
   };
 
   createForm(document.getElementById('formWrapper'))
