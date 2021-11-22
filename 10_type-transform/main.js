@@ -1,5 +1,14 @@
 (() => {
 
+  const form = document.createElement('form');
+  const fName = document.createElement('input');
+  const dBirth = document.createElement('input');
+  const dLearning = document.createElement('input');
+  const faculty = document.createElement('input');
+  const button = document.createElement('button');
+
+
+
   let studentsArray = [];
 
 
@@ -8,46 +17,36 @@
 
 
 
-
-
-
   function createForm() {
-    const form = document.createElement('form');
-    const fullName = document.createElement('input');
-    const dateBirth = document.createElement('input');
-    const dateStartTraining = document.createElement('input');
-    const faculty = document.createElement('input');
-    const button = document.createElement('button');
-
-    fullName.type = 'text';
-    dateBirth.type = 'text';
-    dateStartTraining.type = 'number';
+    fName.type = 'text';
+    dBirth.type = 'text';
+    dLearning.type = 'number';
 
     function focus() {
-      dateBirth.addEventListener('focus', () => {
-        dateBirth.type = 'date';
-        dateBirth.addEventListener('blur', () => {
-          dateBirth.type = 'text';
+      dBirth.addEventListener('focus', () => {
+        dBirth.type = 'date';
+        dBirth.addEventListener('blur', () => {
+          dBirth.type = 'text';
         })
       })
     }
     focus();
 
-    fullName.placeholder = 'ФИО студента';
-    dateBirth.placeholder = 'Дата рождения';
-    dateStartTraining.placeholder = 'Год начала обучения';
+    fName.placeholder = 'ФИО студента';
+    dBirth.placeholder = 'Дата рождения';
+    dLearning.placeholder = 'Год начала обучения';
     faculty.placeholder = 'Факультет';
 
     form.classList = "form";
-    fullName.classList = "full__name";
-    dateBirth.classList = "date__birth";
-    dateStartTraining.classList = "date__start-training";
+    fName.classList = "full__name";
+    dBirth.classList = "date__birth";
+    dLearning.classList = "date__start-training";
     faculty.classList = "faculty";
     button.classList = "button";
 
     button.textContent = "Добавить студента";
 
-    form.append(fullName, dateBirth, dateStartTraining, faculty, button);
+    form.append(fName, dBirth, dLearning, faculty, button);
     document.getElementById('formWrapper').append(form);
 
     form.addEventListener('submit', (e) => {
