@@ -1,5 +1,15 @@
 #formWrapper {
-    display: flex;
-    justify-content: center;
-    padding-top: 35px;
+  display: flex;
+  justify-content: center;
+  padding-top: 35px;
+}
+
+input {
+  margin-right: 10px !important;
+}
+
+.error {}
+
+.error {
+  margin-right: 10px;
 }
