@@ -1,3 +1,5 @@
-.form .full__name {
-  width: 100%;
+#formWrapper {
+    display: flex;
+    justify-content: center;
+    padding-top: 35px;
 }

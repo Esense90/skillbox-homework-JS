@@ -45,6 +45,16 @@
             e.preventDefault();
             form.reset();
         })
+
+        button.addEventListener('click', () => {
+            if (fName.value.length != 0 || dBirth.value.length != 0 || dLearning.value.length != 0 || faculty.value.length != 0) {
+                studentsArray.push(fName.value, dBirth.value, dLearning.value, faculty.value);
+            }
+            if (fName.value.length <= 0 || dBirth.value.length <= 0 || dLearning.value.length <= 0 || faculty.value.length <= 0) {
+
+            }
+            console.log(studentsArray);
+        });
     };
 
     createForm(document.getElementById('formWrapper'))
