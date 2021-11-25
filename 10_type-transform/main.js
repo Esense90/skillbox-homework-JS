@@ -30,10 +30,10 @@
     faculty.placeholder = 'Факультет';
 
     form.classList = "form";
-    fName.classList = "full__name, field";
-    dBirth.classList = "date__birth, field";
-    dLearning.classList = "date__start-training, field";
-    faculty.classList = "faculty, field";
+    fName.classList = "full__name";
+    dBirth.classList = "date__birth";
+    dLearning.classList = "date__start-training";
+    faculty.classList = "faculty";
     button.classList = "button";
 
     button.textContent = "Добавить студента";
@@ -44,23 +44,6 @@
     form.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      const fields = form.querySelectorAll('.field')
-      const errors = form.querySelectorAll('.error')
-
-      for (var i = 0; i < errors.length; i++) {
-        errors[i].remove()
-      }
-
-      for (var i = 0; i < fields.length; i++) {
-        if (!fields[i].value) {
-          console.log('field is blank', fields[i])
-          const error = document.createElement('div')
-          error.className = 'error'
-          error.style.color = 'red'
-          error.innerHTML = 'Cannot be blank'
-          form.append(error)
-        }
-      }
 
     });
   };
