@@ -1,5 +1,4 @@
-(() => {
-    let studentsArrow = [{
+    let studentsArr = [{
             fName: 'Петров',
             name: 'Иван',
             sName: 'Сергеевич',
@@ -25,59 +24,45 @@
         },
     ]
 
-    function createContainer() {
-        const form = document.createElement('form');
-        const fName = document.createElement('input');
-        const name = document.createElement('input');
-        const sName = document.createElement('input');
-        const dBirth = document.createElement('input');
-        const dLearning = document.createElement('input');
-        const faculty = document.createElement('input');
-        const button = document.createElement('button');
+    function inputs() {
+        const fName = document.getElementById('fName');
+        const name = document.getElementById('name');
+        const sName = document.getElementById('sName');
+        const birth = document.getElementById('birth');
+        const sEducation = document.getElementById('sEducation');
+        const faculty = document.getElementById('faculty');
+        const btnSub = document.getElementById('btnSub');
+        const form = document.getElementById('form');
 
-        fName.type = 'text';
-        name.type = 'text';
-        sName.type = 'text';
-        dBirth.type = 'date';
-        dLearning.type = 'number';
-
-        fName.placeholder = 'Фамилия';
-        name.placeholder = 'Имя';
-        sName.placeholder = 'Отчество'
-        dBirth.placeholder = 'Дата рождения';
-        dLearning.placeholder = 'Год начала обучения';
-        faculty.placeholder = 'Факультет';
-
-        form.classList = "form";
-        fName.classList = "mb-3";
-        name.classList = "mb-3";
-        sName.classList = "mb-3";
-        dBirth.classList = "mb-3";
-        dLearning.classList = "mb-3";
-        faculty.classList = "mb-3";
-        button.classList = "btn, btn-primary";
-
-        button.textContent = "Добавить студента";
-
-        form.style.display = "flex";
-        form.style.flexDirection = "column";
-        form.style.width = "17%";
-
-
-
-        form.append(fName, name, sName, dBirth, dLearning, faculty, button);
-        document.getElementById('formWrapper').append(form);
-
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            studentsArrow.push(fName.value);
-            studentsArrow.push(name.value);
-            studentsArrow.push(sName.value);
-
-            console.log(studentsArrow);
-            form.reset();
-        })
+        return {
+            fName,
+            name,
+            sName,
+            birth,
+            sEducation,
+            faculty,
+            btnSub,
+            form
+        }
     };
-    createContainer(document.getElementById('container'))
-})();
+
+    let inputForm = inputs();
+
+
+    inputForm.btnSub.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        let dateArr = String(inputForm.birthValue);
+
+        let student = {
+            fName: inputForm.fName.value.trim(),
+            name: inputForm.name.value.trim(),
+            sName: inputForm.sName.value.trim(),
+            birth: new Date(dateArr[0] - dateArr[2] - dateArr[3]),
+            sEducation: inputForm.sEducation.value.trim(),
+            faculty: inputForm.faculty.value.trim()
+        };
+
+        studentsArr.push(student);
+
+    })
