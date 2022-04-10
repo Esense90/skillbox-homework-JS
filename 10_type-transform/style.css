@@ -1,4 +1,3 @@
-#formWrapper {
-    display: flex;
-    justify-content: space-between;
+.form .full__name {
+    width: 100%;
 }
