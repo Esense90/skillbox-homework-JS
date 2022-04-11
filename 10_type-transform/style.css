@@ -1,11 +1,23 @@
-.form-label {
-    margin: 0;
+#formWrapper {
+    padding-top: 25px;
+    width: 17%;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column-reverse;
+    position: relative;
+}
+
+.input-group>.form-control {
+    width: 100%;
+}
+
+.input-group>:not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+    position: absolute;
+    top: -23px;
 }
 
 .mb-3 {
-    margin: 0!important;
-}
-
-#btnSub {
-    margin-top: 20px;
+    margin-bottom: 25px !important;
 }

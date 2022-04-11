@@ -24,20 +24,20 @@
         },
     ]
 
-    function inputs() {
+    function createForm() {
+        const surname = document.getElementById('surname');
         const fName = document.getElementById('fName');
-        const name = document.getElementById('name');
-        const sName = document.getElementById('sName');
-        const birth = document.getElementById('birth');
+        const patronymic = document.getElementById('patronymic');
+        const birth = document.getElementById('birthDate');
         const sEducation = document.getElementById('sEducation');
         const faculty = document.getElementById('faculty');
         const btnSub = document.getElementById('btnSub');
-        const form = document.getElementById('form');
+        const form = document.getElementsByClassName('form-label');
 
         return {
+            surname,
             fName,
-            name,
-            sName,
+            patronymic,
             birth,
             sEducation,
             faculty,
@@ -45,24 +45,25 @@
             form
         }
     };
-
-    let inputForm = inputs();
+    let inputForm = createForm();
 
 
     inputForm.btnSub.addEventListener('click', (e) => {
         e.preventDefault();
 
-        let dateArr = String(inputForm.birthValue);
+        let dateArr = String(birthDate.value.trim());
 
         let student = {
+            surname: inputForm.surname.value.trim(),
             fName: inputForm.fName.value.trim(),
-            name: inputForm.name.value.trim(),
-            sName: inputForm.sName.value.trim(),
-            birth: new Date(dateArr[0] - dateArr[2] - dateArr[3]),
+            patronymic: inputForm.patronymic.value.trim(),
+            birth: new Date(dateArr),
             sEducation: inputForm.sEducation.value.trim(),
             faculty: inputForm.faculty.value.trim()
         };
 
         studentsArr.push(student);
+        console.log(studentsArr);
+
 
     })

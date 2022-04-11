@@ -20,29 +20,23 @@
         <div id="table"></div>
         <div id="formWrapper">
             <form id="form">
-                <label class="form-label" for="fName"></label>
                 <div class="input-group mb-3">
-                    <input id="fName" type="text" placeholder="Фамилия">
+                    <input class="form__input form-control" id="surname" type="text" placeholder="Фамилия">
                 </div>
-                <label class="form-label" for="name"></label>
                 <div class="input-group mb-3">
-                    <input id="name" type="text" placeholder="Имя">
+                    <input class="form__input form-control" id="fName" type="text" placeholder="Имя">
                 </div>
-                <label class="form-label" for="sName"></label>
                 <div class="input-group mb-3">
-                    <input id="sName" type="text" placeholder="Отчество">
+                    <input class="form__input form-control" id="patronymic" type="text" placeholder="Отчество">
                 </div>
-                <label class="form-label" for="birthDate"></label>
                 <div class="input-group mb-3">
-                    <input id="birthDate" type="date" placeholder="Дата рождения">
+                    <input class="form__input form-control" id="birthDate" type="date" placeholder="Дата рождения">
                 </div>
-                <label class="form-label" for="sEducation"></label>
                 <div class="input-group mb-3">
-                    <input id="sEducation" type="number" placeholder="Год начала обучения">
+                    <input class="form__input form-control" id="sEducation" type="number" onkeypress="this.value=this.value.substring(0,3);" placeholder="Год начала обучения">
                 </div>
-                <label class="form-label" for="faculty"></label>
                 <div class="input-group mb-3">
-                    <input id="faculty" type="text" placeholder="Факультет">
+                    <input class="form__input form-control" id="faculty" type="text" placeholder="Факультет">
                 </div>
                 <div class="input-group mb-3">
                     <button id="btnSub" class="btn btn-primary">Добавить студента</button>
@@ -50,7 +44,6 @@
             </form>
         </div>
     </div>
-
 </body>
 
 </html>
