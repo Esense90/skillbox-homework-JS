@@ -47,10 +47,7 @@
     };
     let inputForm = createForm();
 
-
-    inputForm.btnSub.addEventListener('click', (e) => {
-        e.preventDefault();
-
+    function addStudent() {
         let dateArr = String(birthDate.value.trim());
 
         let student = {
@@ -64,6 +61,46 @@
 
         studentsArr.push(student);
         console.log(studentsArr);
+    };
+
+    function validForm() {
+
+        const validate = new JustValidate('#form');
+
+        validate
+            .addField('#surname', [{
+                rule: 'required',
+                errorMessage: 'Заполните поле',
+            }, ])
+            .addField('#fName', [{
+                rule: 'required',
+                errorMessage: 'Заполните поле',
+            }, ])
+            .addField('#patronymic', [{
+                rule: 'required',
+                errorMessage: 'Заполните поле',
+            }, ])
+        validate.addField('#birthDate', [{
+                plugin: JustValidatePluginDate(() => ({
+                    required: 'boolean',
+                    isAfter: '01/01/1900',
+                    isBefore: new Date(),
+                })),
+                errorMessage: 'Дата от 01-01-1900 до Cегодня',
+            }, ])
+            .addField('#sEducation', [{
+                rule: 'required',
+                errorMessage: 'Заполните поле',
+            }, ])
+            .addField('#faculty', [{
+                rule: 'required',
+                errorMessage: 'Заполните поле',
+            }, ]);
+    };
+
+    btnSub.addEventListener('click', () => {
+
+
 
 
     })
