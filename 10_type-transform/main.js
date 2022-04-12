@@ -81,8 +81,12 @@
 
             if (!inputForm.fields[i].value) {
                 inputForm.label[i].innerHTML = 'Заполните поле';
+                inputForm.label[i].classList.add('invalid');
             } else(
-                inputForm.label[i].innerHTML = '');
+                inputForm.label[i].innerHTML = '',
+                inputForm.label[i].classList.remove('invalid')
+            );
+
 
             if (new Date(dateArr) <= new Date('01-01-1900')) {
                 document.querySelector('label[for="birth"]').innerHTML = 'Дата от 01-01-1900 до сегодня';
@@ -92,6 +96,7 @@
                 document.querySelector('label[for="sEducation"]').innerHTML = 'Год от 2000 до сегодня';
             }
         }
+
     }
 
 
