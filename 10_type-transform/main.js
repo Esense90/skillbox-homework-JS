@@ -33,6 +33,8 @@
         const faculty = document.getElementById('faculty');
         const btnSub = document.getElementById('btnSub');
         const form = document.getElementById('form');
+        const fields = form.querySelectorAll('.form__input');
+        const label = form.querySelectorAll('.label')
 
         return {
             surname,
@@ -42,7 +44,9 @@
             sEducation,
             faculty,
             btnSub,
-            form
+            form,
+            fields,
+            label
         }
     };
     let inputForm = inputsForm();
@@ -64,9 +68,37 @@
         console.log(studentsArr);
     };
 
+    function validateForm() {
+        let errors = form.querySelectorAll('.error')
+        let dateArr = String(birth.value.trim());
 
 
-    btnSub.addEventListener("click", () => {
+        for (let i = 0; i < errors.length; i++) {
+            errors[i].remove()
+        }
+
+        for (var i = 0; i < inputForm.fields.length; i++) {
+
+            if (!inputForm.fields[i].value) {
+                inputForm.label[i].innerHTML = 'Заполните поле';
+            } else(
+                inputForm.label[i].innerHTML = '');
+
+            if (new Date(dateArr) <= new Date('01-01-1900')) {
+                document.querySelector('label[for="birth"]').innerHTML = 'Дата от 01-01-1900 до сегодня';
+            } else if (inputForm.sEducation.value < 2000) {
+                document.querySelector('label[for="sEducation"]').innerHTML = 'Год от 2000 до сегодня';
+            } else if (inputForm.sEducation.value > new Date().getFullYear()) {
+                document.querySelector('label[for="sEducation"]').innerHTML = 'Год от 2000 до сегодня';
+            }
+        }
+    }
 
 
-    })
+
+    btnSub.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        validateForm();
+
+    });
