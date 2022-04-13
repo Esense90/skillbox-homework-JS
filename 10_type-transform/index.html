@@ -15,39 +15,41 @@
 
 <body>
     <div id="container" class="container mb-5">
-        <div id="filter"></div>
-        <div id="table"></div>
-        <div id="formWrapper">
-            <form id="form" autocomplete="off">
-                <div class="input-group mb-3">
-                    <label class="label" for="surname"></label>
-                    <input class="form__input form-control" id="surname" type="text" required placeholder="Фамилия">
-                </div>
-                <div class="input-group mb-3">
-                    <label class="label" for="fName"></label>
-                    <input class="form__input form-control" id="fName" type="text" placeholder="Имя">
-                </div>
-                <div class="input-group mb-3">
-                    <label class="label" for="patronymic"></label>
-                    <input class="form__input form-control" id="patronymic" type="text" placeholder="Отчество">
-                </div>
-                <div class="input-group mb-3">
-                    <label class="label" for="birth"></label>
-                    <input class="form__input form-control" id="birth" type="date" placeholder="Дата рождения">
-                </div>
-                <div class="input-group mb-3">
-                    <label class="label" for="sEducation"></label>
-                    <input class="form__input form-control" id="sEducation" type="number" onkeypress="this.value=this.value.substring(0,3);" placeholder="Год начала обучения">
-                </div>
-                <div class="input-group mb-3">
-                    <label class="label" for="faculty"></label>
-                    <input class="form__input form-control" id="faculty" type="text" placeholder="Факультет">
-                </div>
-                <div class="input-group mb-3">
-                    <button id="btnSub" class="btn btn-primary" type="button">Добавить студента</button>
-                </div>
-            </form>
+        <div class="form__table">
+            <div id="formWrapper">
+                <form id="form" autocomplete="off">
+                    <div class="input-group mb-3">
+                        <label class="label" for="surname"></label>
+                        <input class="form__input form-control" id="surname" type="text" required placeholder="Фамилия">
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="label" for="fName"></label>
+                        <input class="form__input form-control" id="fName" type="text" placeholder="Имя">
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="label" for="patronymic"></label>
+                        <input class="form__input form-control" id="patronymic" type="text" placeholder="Отчество">
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="label" for="birth"></label>
+                        <input class="form__input form-control" id="birth" type="date" placeholder="Дата рождения">
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="label" for="sEducation"></label>
+                        <input class="form__input form-control" id="sEducation" type="number" onkeypress="this.value=this.value.substring(0,3);" placeholder="Год начала обучения">
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="label" for="faculty"></label>
+                        <input class="form__input form-control" id="faculty" type="text" placeholder="Факультет">
+                    </div>
+                    <div class="input-group mb-3">
+                        <button id="btnSub" class="btn btn-primary" type="button">Добавить студента</button>
+                    </div>
+                </form>
+            </div>
+            <div id="filter"></div>
         </div>
+        <table id="table"></table>
     </div>
 </body>
 

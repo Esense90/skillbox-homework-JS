@@ -7,22 +7,23 @@
             faculty: 'МКиС',
         },
         {
-            fName: 'Кушаков',
+            surname: 'Кушаков',
             name: 'Петр',
-            sName: 'Иванович',
+            patronymic: 'Иванович',
             birth: new Date('2002-7-21'),
             sEducation: '2017',
             faculty: 'ЖБК',
         },
         {
-            fName: 'Андрейченко',
-            name: 'Максим',
-            sName: 'Олегович',
+            surname: 'Андрейченко',
+            fName: 'Максим',
+            patronymic: 'Олегович',
             birth: new Date('2006-2-26'),
             sEducation: '2012',
             faculty: 'ТПМ',
         },
     ]
+
 
     function inputsForm() {
         const surname = document.getElementById('surname');
@@ -66,16 +67,13 @@
 
         studentsArr.push(student);
         console.log(studentsArr);
+        form.reset();
     };
 
+
     function validateForm() {
-        let errors = form.querySelectorAll('.error')
+
         let dateArr = String(birth.value.trim());
-
-
-        for (let i = 0; i < errors.length; i++) {
-            errors[i].remove()
-        }
 
         for (var i = 0; i < inputForm.fields.length; i++) {
 
@@ -88,13 +86,31 @@
             };
             if (new Date(dateArr) <= new Date('01-01-1900')) {
                 document.querySelector('label[for="birth"]').innerHTML = 'Дата от 01-01-1900 до сегодня';
+                document.querySelector('label[for="birth"]').classList.add('invalid');
             } else if (inputForm.sEducation.value < 2000) {
                 document.querySelector('label[for="sEducation"]').innerHTML = 'Год от 2000 до сегодня';
+                document.querySelector('label[for="sEducation"]').classList.add('invalid');
             } else if (inputForm.sEducation.value > new Date().getFullYear()) {
                 document.querySelector('label[for="sEducation"]').innerHTML = 'Год от 2000 до сегодня';
+                document.querySelector('label[for="sEducation"]').classList.add('invalid');
             }
         }
-    }
+
+        if (document.querySelector('label[for="surname"]').classList.contains('invalid')) {
+
+        } else if (document.querySelector('label[for="fName"]').classList.contains('invalid')) {
+
+        } else if (document.querySelector('label[for="patronymic"]').classList.contains('invalid')) {
+
+        } else if (document.querySelector('label[for="birth"]').classList.contains('invalid')) {
+
+        } else if (document.querySelector('label[for="sEducation"]').classList.contains('invalid')) {
+
+        } else if (document.querySelector('label[for="faculty"]').classList.contains('invalid')) {
+
+        } else(addStudent());
+
+    };
 
 
 
@@ -103,14 +119,10 @@
 
         validateForm();
 
-        for (let i = 0; i < inputForm.label.length; i++) {
-
-            if (inputForm.label[i].classList.contains('invalid')) {
-                return
-            } else {
-                addStudent();
-            }
 
 
-        }
+
+
+
+
     });
