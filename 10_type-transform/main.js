@@ -1,28 +1,33 @@
-    let studentsArr = [{
-            surname: 'Петров',
-            fName: 'Иван',
-            patronymic: 'Сергеевич',
-            birthDate: new Date('2000-5-14'),
-            sEducation: '2015',
-            faculty: 'МКиС',
-        },
-        {
-            surname: 'Кушаков',
-            name: 'Петр',
-            patronymic: 'Иванович',
-            birth: new Date('2002-7-21'),
-            sEducation: '2017',
-            faculty: 'ЖБК',
-        },
-        {
-            surname: 'Андрейченко',
-            fName: 'Максим',
-            patronymic: 'Олегович',
-            birth: new Date('2006-2-26'),
-            sEducation: '2012',
-            faculty: 'ТПМ',
-        },
-    ]
+    // let studentsArr = [{
+    //         surname: 'Петров',
+    //         fName: 'Иван',
+    //         patronymic: 'Сергеевич',
+    //         birthDate: new Date('2000-5-14'),
+    //         sEducation: '2015',
+    //         faculty: 'МКиС',
+    //     },
+    //     {
+    //         surname: 'Кушаков',
+    //         name: 'Петр',
+    //         patronymic: 'Иванович',
+    //         birth: new Date('2002-7-21'),
+    //         sEducation: '2017',
+    //         faculty: 'ЖБК',
+    //     },
+    //     {
+    //         surname: 'Андрейченко',
+    //         fName: 'Максим',
+    //         patronymic: 'Олегович',
+    //         birth: new Date('2006-2-26'),
+    //         sEducation: '2012',
+    //         faculty: 'ТПМ',
+    //     },
+    // ]
+
+
+
+    let studentsArr = [];
+
 
 
     function inputsForm() {
@@ -36,6 +41,7 @@
         const form = document.getElementById('form');
         const fields = form.querySelectorAll('.form__input');
         const label = form.querySelectorAll('.label')
+        const table = document.getElementById('table');
 
         return {
             surname,
@@ -47,7 +53,8 @@
             btnSub,
             form,
             fields,
-            label
+            label,
+            table
         }
     };
     let inputForm = inputsForm();
@@ -66,6 +73,7 @@
         };
 
         studentsArr.push(student);
+        addStudentToTable(student);
         console.log(studentsArr);
         form.reset();
     };
@@ -109,19 +117,87 @@
         } else if (document.querySelector('label[for="faculty"]').classList.contains('invalid')) {
 
         } else(addStudent());
-
     };
 
+
+
+    function addStudentToTable(student) {
+
+        const StudyYears = 4;
+
+        let course = (year) => {
+            let nowYear = new Date().getFullYear();
+            let nowMonth = new Date().getMonth() + 1;
+            if (nowYear - year > 4 || (nowYear - year === StudyYears && nowMonth > 8)) {
+                return 'закончил';
+            } else {
+                return `${nowYear - year} курс`;
+            }
+        }
+
+        let birth = () => {
+            let birth = new Date(student.birth);
+            let year = birth.getFullYear();
+            let month = birth.getMonth() + 1 < 10 ?
+                '0' + String(birth.getMonth() + 1) :
+                birth.getMonth() + 1;
+
+            let day = birth.getDate() < 10 ?
+                '0' + String(birth.getDate()) :
+                birth.getDate();
+
+            let getAge = (birth) => {
+                let now = new Date();
+                let age = now.getFullYear() - birth.getFullYear();
+                return now.setFullYear(1972) < birth.setFullYear(1972) ? age - 1 : age;
+            };
+            return `${day}.${month}.${year} (${getAge(birth)} лет)`;
+        }
+
+        let tr = document.createElement('tr');
+        let tbody = document.querySelector('tbody');
+
+        let newStudent = {
+            fullName: `${student.surname} ${student.fName} ${student.patronymic}`,
+            birth: birth(),
+            startDate: `${student.sEducation} - ${Number(student.sEducation) + StudyYears} (${course(student.sEducation)})`,
+            faculty: student.faculty
+        };
+
+        for (let data of Object.values(newStudent)) {
+            let td = document.createElement('td');
+            td.textContent = data;
+            tr.append(td);
+            tbody.append(tr);
+        }
+
+        return tr;
+    };
+
+
+    function sortArr() {
+
+        let sortBtn = document.querySelectorAll('.sort');
+
+        sortBtn.forEach(function(btnClick) {
+
+            btnClick.addEventListener('click', () => {
+
+                let sortedRows = Array.from(inputForm.table.rows)
+                    .slice(1)
+                    .sort((rowA, rowB) => rowA.cells[0].innerHTML > rowB.cells[0].innerHTML ? 1 : -1);
+
+                inputForm.table.tBodies[0].append(...sortedRows);
+            })
+        })
+    }
+    sortArr();
 
 
     btnSub.addEventListener("click", (e) => {
         e.preventDefault();
 
         validateForm();
-
-
-
-
 
 
 

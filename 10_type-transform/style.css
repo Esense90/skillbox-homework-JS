@@ -23,3 +23,19 @@
 .form__table {
     display: flex;
 }
+
+th {
+    cursor: pointer;
+}
+
+.surname,
+.birthdate,
+.education,
+.faculty {
+    width: 25%;
+    text-align: center;
+}
+
+td {
+    text-align: center;
+}
