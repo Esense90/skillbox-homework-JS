@@ -7,14 +7,14 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    margin-bottom: 25px !important;
+    margin-bottom: 15px!important;
 }
 
 .input-group>.form-control {
     width: 100%;
 }
 
-.label {
+span {
     position: absolute;
     top: -22px;
     color: red;
@@ -38,4 +38,9 @@ th {
 
 td {
     text-align: center;
+}
+
+#errorsWrapper {
+    margin-bottom: 15px;
+    color: red;
 }

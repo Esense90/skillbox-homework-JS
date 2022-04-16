@@ -1,6 +1,6 @@
 let studentsArr = [{
         surname: 'Петров',
-        fName: 'Иван',
+        fName: 'Петр',
         patronymic: 'Сергеевич',
         birth: new Date('2000-5-14'),
         sEducation: '2015',
@@ -24,18 +24,20 @@ let studentsArr = [{
     },
 ]
 
+const form = document.getElementById('form');
+const btnSub = document.getElementById('btnSub');
+const errorWrapper = document.getElementById('errorWrapper');
+const table = document.getElementById('table');
+const tbody = document.getElementById('tbody');
+const filter = document.getElementById('filter');
+
 function inputsForm() {
-    const surname = document.getElementById('surname');
-    const fName = document.getElementById('fName');
-    const patronymic = document.getElementById('patronymic');
-    const birth = document.getElementById('birth');
-    const sEducation = document.getElementById('sEducation');
-    const faculty = document.getElementById('faculty');
-    const btnSub = document.getElementById('btnSub');
-    const form = document.getElementById('form');
-    const fields = form.querySelectorAll('.form__input');
-    const label = form.querySelectorAll('.label')
-    const table = document.getElementById('table');
+    let surname = document.getElementById('surname');
+    let fName = document.getElementById('fName');
+    let patronymic = document.getElementById('patronymic');
+    let birth = document.getElementById('birth');
+    let sEducation = document.getElementById('sEducation');
+    let faculty = document.getElementById('faculty');
 
     return {
         surname,
@@ -43,15 +45,11 @@ function inputsForm() {
         patronymic,
         birth,
         sEducation,
-        faculty,
-        btnSub,
-        form,
-        fields,
-        label,
-        table
+        faculty
     }
 };
 let inputForm = inputsForm();
+
 
 function addStudent() {
     let dateArr = String(birth.value.trim());
@@ -64,29 +62,17 @@ function addStudent() {
         sEducation: inputForm.sEducation.value.trim(),
         faculty: inputForm.faculty.value.trim()
     };
-    return student;
+
+    studentsArr.push(student);
+    console.log(studentsArr);
 };
-let student = addStudent();
-
-function studentsTable() {
-    let rowHeader = table.insertRow();
-    for (let prop in studentsArr[0]) {
-        let cell = rowHeader.insertCell();
-        cell.innerText = prop;
-        console.log(prop);
-    }
-
-    for (let i = 0; i < studentsArr.length; i++) {
-        let row = table.insertRow();
-        for (let prop in studentsArr[i]) {
-            let cell = row.insertCell();
-            cell.innerText = studentsArr[i][prop];
-        }
-    }
-};
-studentsTable();
 
 
-btnSub.addEventListener('click', () => {
+
+
+btnSub.addEventListener('click', (e) => {
+    e.preventDefault();
+
+
 
 })
