@@ -28,11 +28,14 @@ const form = document.getElementById('form');
 let btnSub = document.getElementById('btnSub');
 const errorsWrapper = document.getElementById('errorsWrapper');
 let span = document.createElement('span');
-// let spanBirth = document.createElement('span');
-// let spanEducat = document.createElement('span');
-const table = document.getElementById('table');
+const btnFilterReset = document.getElementById('btnFilter');
+const table = document.getElementById('sortable');
 const tbody = document.getElementById('tbody');
 const filter = document.getElementById('filter');
+const fullnameF = document.getElementById('fullnameF');
+const birthF = document.getElementById('birthF');
+const sEducation = document.getElementById('sEducation');
+const facultyF = document.getElementById('facultyF');
 
 function inputsForm() {
     let surname = document.getElementById('surname');
@@ -53,28 +56,8 @@ function inputsForm() {
 };
 let inputForm = inputsForm();
 
-function inputsValue() {
-    let surnameVal = surname.value;
-    let fNameVal = fName.value;
-    let patronymicVal = patronymic.value;
-    let birthVal = birth.value;
-    let sEducationVal = sEducation.value;
-    let facultyVal = faculty.value;
-
-    return {
-        surnameVal,
-        fNameVal,
-        patronymicVal,
-        birthVal,
-        sEducationVal,
-        facultyVal
-    }
-}
-let inputsVal = inputsValue();
-
-
 const addNewStudent = () => {
-    let dateArr = String(birth.value.trim());
+    let dateArr = String(inputForm.birth.value.trim());
     let student = {
         surname: inputForm.surname.value.trim(),
         fName: inputForm.fName.value.trim(),
@@ -135,7 +118,6 @@ function addStudentToTable(student) {
         td.textContent = data;
         tr.append(td);
     }
-
     return tr;
 };
 
@@ -150,7 +132,6 @@ function createTableBody() {
         tbody = document.createElement('tbody');
         tbody.classList.add('tbody');
     }
-
     for (const student of studentsArr) {
         td = addStudentToTable(student);
         tbody.append(td);
@@ -158,43 +139,47 @@ function createTableBody() {
 }
 createTableBody();
 
-
-
-
-
 function validateForm() {
-
     let validateVal = (inputForm.surname.value && inputForm.fName.value && inputForm.patronymic.value && inputForm.birth.value && inputForm.sEducation.value && inputForm.faculty.value) ?
         false : true;
-
     return validateVal;
 };
 
 function validateDates() {
-
     let validDates = (new Date(inputForm.birth.valueAsDate) < new Date('01-01-1900') || new Date(inputForm.birth.valueAsDate) > new Date()) ?
         false : true;
-
     return validDates;
 }
 
 function validateBirth() {
-
     let validBirth = (inputForm.sEducation.value < new Date(2000) || inputForm.sEducation.value > new Date().getFullYear()) ?
         false : true;
-
     return validBirth;
 }
 let validBirth = validateBirth();
 
+const getSort = ({ target }) => {
+    const order = (target.dataset.order = -(target.dataset.order || -1));
+    const index = [...target.parentNode.cells].indexOf(target);
+    const collator = new Intl.Collator(['en', 'ru'], { numeric: true });
+    const comparator = (index, order) => (a, b) => order * collator.compare(
+        a.children[index].innerHTML,
+        b.children[index].innerHTML
+    );
 
+    for (const tBody of target.closest('table').tBodies)
+        tBody.append(...[...tBody.rows].sort(comparator(index, order)));
+
+    for (const cell of target.parentNode.cells)
+        cell.classList.toggle('sorted', cell === target);
+};
+document.querySelectorAll('.table_sort thead').forEach(tableTH => tableTH.addEventListener('click', () => getSort(event)));
 
 btnSub.addEventListener('click', (e) => {
     e.preventDefault();
     let validateDate = validateDates();
     let validResult = validateForm();
     let validBirth = validateBirth();
-
 
     if (validResult == true) {
         span.innerHTML = "Заполните все поля!";
@@ -211,5 +196,4 @@ btnSub.addEventListener('click', (e) => {
         form.reset();
         createTableBody(studentsArr);
     }
-
 })

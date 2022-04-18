@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./bootstrap.min.css">
     <link rel="stylesheet" href="./style.css">
-    <script defer src="./main1.js"></script>
+    <script defer src="./main.js"></script>
 
     <title>Document</title>
 
@@ -44,20 +44,20 @@
             </div>
             <div id="filter">
                 <h class="title">Фильтр студентов</h>
-                <input class="fullnameF form-control" type="text" placeholder="ФИО">
-                <input class="birthF form-control" type="date" placeholder="Дата рождения">
-                <input class="sEducationF form-control" type="number" placeholder="Год начало обучения">
-                <input class="facultyF form-control" type="text" placeholder="Факультет">
-                <button id="btnFiltet" class="btn btn-primary" type="button">Сбросить</button>
+                <input id="fullnameF" class="fullnameF form-control" type="text" placeholder="ФИО">
+                <input id="birthF" class="birthF form-control" type="date" placeholder="Дата рождения">
+                <input id="sEducationF" class="sEducationF form-control" type="number" placeholder="Год начало обучения">
+                <input id="facultyF" class="facultyF form-control" type="text" placeholder="Факультет">
+                <button id="btnFilter" class="btn btn-primary" type="button">Сбросить</button>
             </div>
         </div>
-        <table id="table" class="table table-bordered">
+        <table id="sortable" class="table table-bordered table_sort">
             <thead class="thead">
                 <tr class="table-primary">
-                    <th class="sort surname">ФИО</th>
-                    <th class="sort birthdate">Дата рождения</th>
-                    <th class="sort education">Годы обучения и номер курса</th>
-                    <th class="sort faculty">Факультет</th>
+                    <th class="surname">ФИО</th>
+                    <th class="birthdate">Дата рождения</th>
+                    <th class="education">Годы обучения и номер курса</th>
+                    <th class="faculty">Факультет</th>
                 </tr>
             </thead>
             <tbody class="tbody"></tbody>
