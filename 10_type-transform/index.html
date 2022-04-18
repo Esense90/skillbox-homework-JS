@@ -19,7 +19,7 @@
             <div id="formWrapper">
                 <form id="form" autocomplete="off">
                     <div class="input-group mb-3">
-                        <input class="form__input form-control" id="surname" type="text" required placeholder="Фамилия">
+                        <input class="form__input form-control" id="surname" type="text" placeholder="Фамилия">
                     </div>
                     <div class="input-group mb-3">
                         <input class="form__input form-control" id="fName" type="text" placeholder="Имя">
@@ -28,7 +28,7 @@
                         <input class="form__input form-control" id="patronymic" type="text" placeholder="Отчество">
                     </div>
                     <div class="input-group mb-3">
-                        <input class="form__input form-control" id="birth" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Дата рождения">
+                        <input class="form__input form-control" id="birth" type="text" onfocus="(this.type='date')" placeholder="Дата рождения">
                     </div>
                     <div class="input-group mb-3">
                         <input class="form__input form-control" id="sEducation" type="number" onkeypress="this.value=this.value.substring(0,3);" placeholder="Год начала обучения">
@@ -42,7 +42,14 @@
                     </div>
                 </form>
             </div>
-            <div id="filter"></div>
+            <div id="filter">
+                <h class="title">Фильтр студентов</h>
+                <input class="fullnameF form-control" type="text" placeholder="ФИО">
+                <input class="birthF form-control" type="date" placeholder="Дата рождения">
+                <input class="sEducationF form-control" type="number" placeholder="Год начало обучения">
+                <input class="facultyF form-control" type="text" placeholder="Факультет">
+                <button id="btnFiltet" class="btn btn-primary" type="button">Сбросить</button>
+            </div>
         </div>
         <table id="table" class="table table-bordered">
             <thead class="thead">
