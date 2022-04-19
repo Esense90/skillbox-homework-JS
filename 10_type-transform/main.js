@@ -4,7 +4,7 @@ let studentsArr = [{
         patronymic: 'Сергеевич',
         birth: new Date('2000-5-14'),
         sEducation: '2019',
-        faculty: 'МКиС',
+        faculty: 'Математики',
     },
     {
         surname: 'Кушаков',
@@ -12,7 +12,7 @@ let studentsArr = [{
         patronymic: 'Иванович',
         birth: new Date('2002-7-21'),
         sEducation: '2017',
-        faculty: 'ЖБК',
+        faculty: 'Информатики',
     },
     {
         surname: 'Андрейченко',
@@ -20,7 +20,7 @@ let studentsArr = [{
         patronymic: 'Олегович',
         birth: new Date('2006-2-26'),
         sEducation: '2021',
-        faculty: 'ТПМ',
+        faculty: 'Экономики',
     },
 ]
 
@@ -34,7 +34,7 @@ const tbody = document.getElementById('tbody');
 const filter = document.getElementById('filter');
 const fullnameF = document.getElementById('fullnameF');
 const birthF = document.getElementById('birthF');
-const sEducation = document.getElementById('sEducation');
+const sEducationF = document.getElementById('sEducationF');
 const facultyF = document.getElementById('facultyF');
 
 function inputsForm() {
@@ -121,7 +121,7 @@ function addStudentToTable(student) {
     return tr;
 };
 
-function createTableBody() {
+function createTableBody(arr) {
     let tbody;
     let td;
 
@@ -132,12 +132,12 @@ function createTableBody() {
         tbody = document.createElement('tbody');
         tbody.classList.add('tbody');
     }
-    for (const student of studentsArr) {
+    for (const student of arr) {
         td = addStudentToTable(student);
         tbody.append(td);
     }
 }
-createTableBody();
+createTableBody(studentsArr);
 
 function validateForm() {
     let validateVal = (inputForm.surname.value && inputForm.fName.value && inputForm.patronymic.value && inputForm.birth.value && inputForm.sEducation.value && inputForm.faculty.value) ?
@@ -175,8 +175,94 @@ const getSort = ({ target }) => {
 };
 document.querySelectorAll('.table_sort thead').forEach(tableTH => tableTH.addEventListener('click', () => getSort(event)));
 
+
+function filterFullName() {
+
+    let fullNameInptVal = fullnameF.value;
+
+    let filterValName;
+
+    let filterArr = studentsArr.filter(function(obj) {
+
+        let copyObj = JSON.parse(JSON.stringify(obj));
+
+        filterValName = fullNameInptVal.toLowerCase().split(' ').join('');
+        copyObj.fullName = function() {
+            let fullName = copyObj.surname + copyObj.fName + ' ' + copyObj.patronymic;
+            return fullName.toLowerCase();
+        }
+        if (copyObj.fullName().includes(filterValName)) {
+            return copyObj.fullName();
+        }
+    });
+    createTableBody(filterArr);
+    return filterArr;
+};
+
+function filterFaculty() {
+
+    let facultyFVal = facultyF.value;
+
+    let filterArr = studentsArr.filter(function(obj) {
+
+        if (obj.faculty.toLowerCase().includes(facultyFVal.toLowerCase()))
+            return obj.faculty
+    })
+    createTableBody(filterArr);
+    return filterArr;
+};
+
+function filterSeducation() {
+
+    let sEducationFVal = sEducationF.value;
+
+    let filterArr = studentsArr.filter(function(obj) {
+
+        if (obj.sEducation.includes(sEducationFVal))
+            return obj.sEducation;
+    })
+
+    createTableBody(filterArr);
+    return filterArr;
+};
+
+// function filterBirth() {
+
+//     let birthFVal = birthF.value;
+
+//     let filterArr = studentsArr.filter(function(obj) {
+
+
+
+
+//     })
+//     createTableBody(filterArr);
+//     return filterArr;
+// }
+
+
+
+fullnameF.addEventListener('keyup', () => {
+    filterFullName()
+})
+
+facultyF.addEventListener('keyup', () => {
+    filterFaculty()
+})
+
+sEducationF.addEventListener('keyup', () => {
+    filterSeducation()
+})
+
+// birthF.addEventListener('keyup', () => {
+//     filterBirth()
+// })
+
+
+
 btnSub.addEventListener('click', (e) => {
     e.preventDefault();
+
     let validateDate = validateDates();
     let validResult = validateForm();
     let validBirth = validateBirth();
@@ -184,6 +270,10 @@ btnSub.addEventListener('click', (e) => {
     if (validResult == true) {
         span.innerHTML = "Заполните все поля!";
         errorsWrapper.append(span);
+        let bordInp = document.querySelectorAll('.form__input');
+        for (i of bordInp) {
+            i.classList.add('border')
+        }
     } else if (validateDate == false) {
         span.innerHTML = "Введите коректную дату рождения (от 01-01-1900 до сегодня)!";
         errorsWrapper.append(span);
@@ -192,8 +282,14 @@ btnSub.addEventListener('click', (e) => {
         errorsWrapper.append(span);
     } else {
         span.innerHTML = "";
+        let bordInp = document.querySelectorAll('.form__input');
+        for (i of bordInp) {
+            i.classList.remove('border')
+        }
         studentsArr.push(addNewStudent());
         form.reset();
         createTableBody(studentsArr);
+        console.log(studentsArr);
     }
+
 })

@@ -55,3 +55,7 @@ td {
 .title {
     font-size: 22px;
 }
+
+.border {
+    border-color: red!important;
+}
