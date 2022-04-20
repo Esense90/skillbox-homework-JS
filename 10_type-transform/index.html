@@ -45,8 +45,8 @@
             <div id="filter">
                 <h class="title">Фильтр студентов</h>
                 <input id="fullnameF" class="fullnameF form-control filtred" type="text" placeholder="ФИО">
-                <input id="birthF" class="birthF form-control filtred" type="date" placeholder="Дата рождения">
-                <input id="sEducationF" class="sEducationF form-control filtred" type="number" placeholder="Год начало обучения">
+                <input id="sEducationFStart" class="sEducationFStart form-control filtred" onkeypress="this.value=this.value.substring(0,3);" type="number" placeholder="Год начала обучения">
+                <input id="sEducationFEnd" class="sEducationFEnd form-control filtred" onkeypress="this.value=this.value.substring(0,3);" type="number" placeholder="Год окончания обучения">
                 <input id="facultyF" class="facultyF form-control filtred" type="text" placeholder="Факультет">
                 <button id="btnFilter" class="btn btn-primary" type="button">Сбросить</button>
             </div>

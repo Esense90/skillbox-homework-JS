@@ -33,8 +33,8 @@ const table = document.getElementById('sortable');
 const tbody = document.getElementById('tbody');
 const filter = document.getElementById('filter');
 const fullnameF = document.getElementById('fullnameF');
-const birthF = document.getElementById('birthF');
-const sEducationF = document.getElementById('sEducationF');
+const sEducationFStart = document.getElementById('sEducationFStart');
+const sEducationFEnd = document.getElementById('sEducationFEnd');
 const facultyF = document.getElementById('facultyF');
 
 function inputsForm() {
@@ -208,55 +208,64 @@ function filterFaculty() {
         if (obj.faculty.toLowerCase().includes(facultyFVal.toLowerCase()))
             return obj.faculty
     })
+    console.log(filterArr)
     createTableBody(filterArr);
     return filterArr;
 };
 
-function filterSeducation() {
+function filterSeducationStart() {
 
-    let sEducationFVal = sEducationF.value;
+    let sEducationFStartVal = sEducationFStart.value;
 
     let filterArr = studentsArr.filter(function(obj) {
 
-        if (obj.sEducation.includes(sEducationFVal))
-            return obj.sEducation;
-    })
+        let startDate = new Date(obj.sEducation).getFullYear();
 
+        if (String(startDate).includes(sEducationFStartVal)) {
+            return startDate
+        }
+    })
     createTableBody(filterArr);
     return filterArr;
 };
 
-// function filterBirth() {
+function filterSeducationEnd() {
 
-//     let birthFVal = birthF.value;
+    let sEducationFEndVal = sEducationFEnd.value;
 
-//     let filterArr = studentsArr.filter(function(obj) {
+    let filterArr = studentsArr.filter(function(obj) {
 
+        let endDate = new Date(obj.sEducation).getFullYear() + parseFloat('4');
 
-
-
-//     })
-//     createTableBody(filterArr);
-//     return filterArr;
-// }
-
-
+        if (String(endDate).includes(sEducationFEndVal)) {
+            return endDate
+        }
+    })
+    createTableBody(filterArr);
+    return filterArr;
+};
 
 fullnameF.addEventListener('keyup', () => {
     filterFullName()
+    console.log(studentsArr)
 })
 
 facultyF.addEventListener('keyup', () => {
     filterFaculty()
 })
 
-sEducationF.addEventListener('keyup', () => {
-    filterSeducation()
+sEducationFStart.addEventListener('keyup', () => {
+    filterSeducationStart()
 })
 
-// birthF.addEventListener('keyup', () => {
-//     filterBirth()
-// })
+sEducationFEnd.addEventListener('keyup', () => {
+    filterSeducationEnd()
+})
+
+btnFilterReset.addEventListener('click', () => {
+    document.querySelectorAll('.filtred').forEach(el => el.value = '');
+    createTableBody(studentsArr)
+})
 
 
 
