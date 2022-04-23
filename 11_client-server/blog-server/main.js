@@ -1,45 +1,61 @@
-const containerBlogs = document.getElementById('containerBlogs');
-const containerPosts = document.getElementById('containerPosts');
-const listsPages = document.getElementById('list__pages');
-
-
-const loadBlogs = async() => {
+async function getPostsData() {
     const pageParams = new URLSearchParams(location.search);
-    const postPages = pageParams.get('page');
+    const postPage = pageParams.get('page');
 
-    const response = await fetch(`https://gorest.co.in/public-api/posts?page=${postPages == null ? 1 : postPages}`);
+    const response = await fetch(`https://gorest.co.in/public-api/posts?page=${postPage == null ? 1 : postPage}`);
     const result = await response.json();
 
-    //  console.log(result);
     return {
         posts: result.data,
         pagination: result.meta.pagination,
-    };
+    }
 };
 
-const createPosts = async() => {
-    const pages = await loadBlogs();
-    let listPages = '';
+async function createPages() {
+    const pagesArr = await getPostsData();
+    const pagesList = document.querySelector('.pages-list');
 
-    for (let i = 1; i <= pages.pagination.pages; i++) {
+    for (let i = 1; i <= pagesArr.pagination.pages; i++) {
 
-        listPages += `
-        <li class="page-item">
-             <a class="page-link" href="https://gorest.co.in/public-api/posts?page=${i}">
-                 Стр - ${i}
-             <a/>
-        </li>`;
-    }
-    listsPages.innerHTML = listPages;
-}
-createPosts()
+        let li = document.createElement('li');
+        let a = document.createElement('a');
 
-const createBlogs = async() => {
-    const blogs = await loadBlogs();
+        li.classList.add('page-item');
+        a.classList.add('page-link');
+        a.href = `index.html?page=${i}`
+        a.textContent = `Стр ${i}`;
 
+        li.appendChild(a);
+        pagesList.appendChild(li);
+    };
+};
+createPages();
 
-    console.log(blogs.posts)
+async function createPosts(id, name, description) {
+    const postsList = document.querySelector('.posts-list');
+    const li = document.createElement('li');
+    li.classList.add("card");
+    li.classList.add("col-md-3");
+    li.setAttribute("data-id", id);
+    const title = document.createElement('h2');
+    title.classList.add("item-title");
+    const text = document.createElement('p');
+    text.classList.add("item-body");
 
+    title.innerHTML = name;
+    text.innerHTML = description;
 
-}
-createBlogs()
+    li.appendChild(title);
+    li.appendChild(text);
+
+    postsList.appendChild(li);
+};
+
+async function requestPosts() {
+    const reqPost = await getPostsData();
+
+    reqPost.posts.forEach((post) => {
+        createPosts(post.id, post.title, post.body)
+    });
+};
+requestPosts();

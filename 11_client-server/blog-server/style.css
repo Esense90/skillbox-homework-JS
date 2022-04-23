@@ -1,0 +1,30 @@
+body {
+    background-color: #686767;
+}
+
+.posts-list {
+    margin: 0;
+    padding-left: 0;
+    justify-content: space-between;
+}
+
+.pages-list {
+    margin-top: 10px;
+}
+
+.item-title {
+    font-size: 19px;
+    color: #000000;
+}
+
+.item-body {
+    font-size: 15px;
+}
+
+.card {
+    max-width: 24%;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    background-color: #e7e7e7;
+    border: 1.5px solid #000000;
+}
