@@ -13,6 +13,7 @@ async function getPostsData() {
 
 async function createPages() {
     const pagesArr = await getPostsData();
+
     const pagesList = document.querySelector('.pages-list');
 
     for (let i = 1; i <= pagesArr.pagination.pages; i++) {
@@ -23,11 +24,20 @@ async function createPages() {
         li.classList.add('page-item', 'item');
         a.classList.add('page-link');
         a.href = `index.html?page=${i}`
-        a.textContent = `Стр ${i}`;
+        a.textContent = `${i}`;
 
         li.appendChild(a);
         pagesList.appendChild(li);
     };
+    numberPage = document.querySelector('.number-page');
+
+    urlParams = new URLSearchParams(window.location.search);
+    params = {};
+
+    urlParams.forEach((p, key) => {
+        params[key] = p;
+    });
+    numberPage.textContent = `Страница ${params.page}`;
 };
 createPages();
 
