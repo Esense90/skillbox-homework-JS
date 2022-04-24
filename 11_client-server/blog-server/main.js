@@ -39,10 +39,12 @@ async function createPages() {
     });
     numberPage.textContent = `Страница ${params.page}`;
 };
-createPages();
 
 async function createPosts(id, name, description) {
     const postsList = document.querySelector('.posts-list');
+    const a = document.createElement('a');
+    a.classList.add("post-link");
+    a.href = `post.html?id=${id}`;
     const li = document.createElement('li');
     li.classList.add("card");
     li.classList.add("col-md-3");
@@ -55,6 +57,7 @@ async function createPosts(id, name, description) {
     title.innerHTML = name;
     text.innerHTML = description;
 
+    li.appendChild(a);
     li.appendChild(title);
     li.appendChild(text);
 
@@ -68,4 +71,67 @@ async function requestPosts() {
         createPosts(post.id, post.title, post.body)
     });
 };
-requestPosts();
+
+async function createPostContent() {
+    const postItem = document.querySelector('.post-item');
+    postContent = '';
+
+    const pageParams = new URLSearchParams(location.search);
+    const postId = pageParams.get('id');
+
+    const response = await fetch(`https://gorest.co.in/public-api/posts/${postId}`);
+    const result = await response.json();
+    const post = result.data;
+
+    postContent += `
+         <div class="card1">
+            <div class="card-body">
+               <h1 class="card-title">${post.title}</h1>
+               <p class="card-text">${post.body}</h1>
+            </div>
+         </div>
+    `;
+    postItem.innerHTML = postContent;
+};
+
+async function createComments() {
+    const commentItem = document.querySelector('.comment-item');
+    let postComment = '';
+
+    const pageParams = new URLSearchParams(location.search);
+    const postId = pageParams.get('id');
+
+    const response = await fetch(`http://gorest.co.in/public-api/comments?post_id=${postId}`);
+    const result = await response.json();
+    const comment = result.data;
+
+    comment.map(item => {
+        postComment = `
+        <div class="card1">
+           <div class="card-header">
+              ${item.email}
+           </div>
+           <div class="card-body">
+              <h1 class="card-title">${item.name}</h1>
+              <p class="card-text">${item.body}</h1>
+           </div>
+        </div>
+   `;
+        commentItem.innerHTML = postComment;
+    })
+};
+
+(async function() {
+    const postNav = document.querySelector('.pages-list');
+    const postPage = document.querySelector('.post-item');
+
+    if (postNav) {
+        createPages();
+        requestPosts();
+    }
+
+    if (postPage) {
+        createPostContent();
+        createComments();
+    }
+}());
