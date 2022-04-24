@@ -20,7 +20,7 @@ async function createPages() {
         let li = document.createElement('li');
         let a = document.createElement('a');
 
-        li.classList.add('page-item');
+        li.classList.add('page-item', 'item');
         a.classList.add('page-link');
         a.href = `index.html?page=${i}`
         a.textContent = `Стр ${i}`;
