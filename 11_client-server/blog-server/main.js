@@ -11,25 +11,38 @@ async function getPostsData() {
     }
 };
 
+if (document.location.search == '') {
+    updateURL(1)
+}
+
+function updateURL(numberPage) {
+    if (history.pushState) {
+        var baseUrl =
+            window.location.protocol +
+            "//" +
+            window.location.host +
+            window.location.pathname;
+        var newUrl = baseUrl + `?page=${numberPage}`;
+        history.pushState(null, null, newUrl);
+    } else {
+        console.warn("History API не поддерживается");
+    }
+};
+
 async function createPages() {
-    const pagesArr = await getPostsData();
+    const response = await fetch('https://gorest.co.in/public-api/posts');
+    const result = await response.json();
 
-    const pagesList = document.querySelector('.pages-list');
+    const pageParams = new URLSearchParams(window.location.search);
+    const postPage = pageParams.get('page');
 
-    for (let i = 1; i <= pagesArr.pagination.pages; i++) {
+    const prev = document.querySelector('.prev');
+    const next = document.querySelector('.next');
+    const lastPage = document.querySelector('.last-page');
 
-        let li = document.createElement('li');
-        let a = document.createElement('a');
-
-        li.classList.add('page-item', 'item');
-        a.classList.add('page-link');
-        a.href = `index.html?page=${i}`
-        a.textContent = `${i}`;
-
-        li.appendChild(a);
-        pagesList.appendChild(li);
-    };
+    lastPage.innerHTML = result.meta.pagination.pages;
     numberPage = document.querySelector('.number-page');
+
 
     urlParams = new URLSearchParams(window.location.search);
     params = {};
@@ -38,6 +51,24 @@ async function createPages() {
         params[key] = p;
     });
     numberPage.textContent = `Страница ${params.page}`;
+
+    next.addEventListener('click', () => {
+        window.location.search = `?page=${parseInt(postPage) + 1}`
+        updateURL(window.location.search)
+    })
+
+    prev.addEventListener('click', () => {
+        window.location.search = `?page=${parseInt(postPage) - 1}`
+        updateURL(window.location.pathname)
+    })
+
+    if (postPage == 1) {
+        prev.setAttribute('disabled', true)
+    }
+
+    if (postPage == result.meta.pagination.pages) {
+        next.setAttribute('disabled', true)
+    }
 };
 
 async function createPosts(id, name, description) {
